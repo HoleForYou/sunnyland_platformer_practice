@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhef1dr8ngj2e"]
+
+[ext_resource type="Texture2D" uid="uid://dwls7mswfjgyt" path="res://World/Props/crate.png" id="1_fx76p"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_36y8l"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdu3k"]
+size = Vector2(16, 16)
+
+[node name="crate" type="RigidBody2D"]
+collision_layer = 6
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_36y8l")
+
+[node name="crate_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_fx76p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hdu3k")

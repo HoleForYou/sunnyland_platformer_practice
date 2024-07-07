@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://cad0e06g0b45v"]
+
+[ext_resource type="Script" path="res://Enemies/Eagle/eagle.gd" id="1_bcqch"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_lkp6y"]
+[ext_resource type="Texture2D" uid="uid://ccy0y70qbsene" path="res://Enemies/Eagle/eagle-attack.png" id="1_u4vq8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uno5h"]
+shader = ExtResource("1_lkp6y")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8gwn"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7x2k"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbiml"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8qht"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sm61u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8gwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7x2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbiml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8qht")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ng1ud"]
+radius = 11.0454
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy3v0"]
+size = Vector2(42.5, 10.5)
+
+[node name="Eagle" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 6
+script = ExtResource("1_bcqch")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_uno5h")
+sprite_frames = SubResource("SpriteFrames_sm61u")
+autoplay = "default"
+frame = 1
+frame_progress = 0.0669711
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_ng1ud")
+metadata/_edit_lock_ = true
+
+[node name="up_player_detecter" type="Area2D" parent="."]
+position = Vector2(-16, -11)
+collision_mask = 3
+
+[node name="up_player_detecter_collision" type="CollisionShape2D" parent="up_player_detecter"]
+position = Vector2(15.25, 2)
+shape = SubResource("RectangleShape2D_dy3v0")
+
+[node name="down_raycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)
+metadata/_edit_lock_ = true
+
+[node name="movement_cooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="up_player_detecter" to="." method="_on_up_player_detecter_body_entered"]
+[connection signal="timeout" from="movement_cooldown" to="." method="_on_movement_cooldown_timeout"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdvx8ive7nkme"]
+
+[ext_resource type="Script" path="res://levels/level_1.gd" id="1_6bhon"]
+[ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://World/parallax_background.tscn" id="1_54epa"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="3_8jl3i"]
+[ext_resource type="PackedScene" uid="uid://1l316pfu6b6x" path="res://levels/tile_map.tscn" id="3_mvs8g"]
+[ext_resource type="Texture2D" uid="uid://hiegaj6qjvel" path="res://World/Props/bush.png" id="5_t2hjk"]
+[ext_resource type="Texture2D" uid="uid://6meqtn3koxto" path="res://World/Props/palm.png" id="6_xe4fc"]
+[ext_resource type="Texture2D" uid="uid://3a5ra8mk1hhl" path="res://World/Props/rock.png" id="7_oamoc"]
+
+[node name="level1" type="Node2D"]
+script = ExtResource("1_6bhon")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_54epa")]
+
+[node name="TileMap" parent="." instance=ExtResource("3_mvs8g")]
+
+[node name="props" type="Node2D" parent="."]
+
+[node name="Bush" type="Sprite2D" parent="props"]
+position = Vector2(121, 194)
+texture = ExtResource("5_t2hjk")
+
+[node name="Palm" type="Sprite2D" parent="props"]
+position = Vector2(153, 121)
+texture = ExtResource("6_xe4fc")
+
+[node name="Palm2" type="Sprite2D" parent="props"]
+position = Vector2(440, 121)
+texture = ExtResource("6_xe4fc")
+
+[node name="Player" parent="." instance=ExtResource("3_8jl3i")]
+position = Vector2(56, 176)
+
+[node name="player_starting_position" type="Marker2D" parent="."]
+position = Vector2(64, 176)
+
+[node name="Rock" type="Sprite2D" parent="."]
+position = Vector2(1118, 105)
+texture = ExtResource("7_oamoc")
